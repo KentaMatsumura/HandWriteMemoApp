@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/list_memo.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_model.dart';
+import 'package:handwrite_memo_app/ui/sample_second_page.dart';
 import 'package:provider/provider.dart';
 
-class MainButtonNavigation extends StatelessWidget {
+class MainListMemoNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listMemoNavigationModel =
@@ -69,7 +70,11 @@ class PopupFloatButton extends StatelessWidget {
             onPressed: () {
               // if (_controller.canUndo) _controller.undo();
               debugPrint("=========Positive");
-              // Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SampleSecondPage(),)
+              );
             },
             child: Text("P"),
           ),
@@ -85,7 +90,11 @@ class PopupFloatButton extends StatelessWidget {
             onPressed: () {
               // if (_controller.canRedo) _controller.redo();
               debugPrint("=========Negative");
-              // Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SampleSecondPage(),)
+              );
             },
             child: Text("N"),
           ),
