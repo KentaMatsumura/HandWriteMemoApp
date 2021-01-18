@@ -67,13 +67,13 @@ class PopupFloatButton extends StatelessWidget {
           // positive
           FloatingActionButton(
             heroTag: "P",
-            onPressed: () {
+            onPressed: () async {
               // if (_controller.canUndo) _controller.undo();
               debugPrint("=========Positive");
-              Navigator.pop(context);
-              Navigator.push(
+              Navigator.pop(context);  // PopupFloatButtonを閉じる
+              await Navigator.push(  // 画面遷移
                 context,
-                MaterialPageRoute(builder: (context) => SampleSecondPage(),)
+                MaterialPageRoute(builder: (context) => SampleSecondPage(receive: ['positive', false],),)
               );
             },
             child: Text("P"),
@@ -87,13 +87,13 @@ class PopupFloatButton extends StatelessWidget {
           FloatingActionButton(
             heroTag: "N",
             backgroundColor: Colors.red,
-            onPressed: () {
+            onPressed: () async {
               // if (_controller.canRedo) _controller.redo();
               debugPrint("=========Negative");
               Navigator.pop(context);
-              Navigator.push(
+              await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SampleSecondPage(),)
+                  MaterialPageRoute(builder: (context) => SampleSecondPage(receive: ['negative', true],),)
               );
             },
             child: Text("N"),
@@ -122,31 +122,31 @@ class PopupFloatButton extends StatelessWidget {
   }
 }
 
-class AddMemoDialog extends StatelessWidget {
-  AddMemoDialog({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final model = Provider.of<ListMemoModel>(context, listen: true);
-    final titleTextEditingController = TextEditingController();
-    return SimpleDialog(
-      title: Text("Add Todo"),
-      contentPadding: EdgeInsets.all(16),
-      children: <Widget>[
-        TextField(
-          controller: titleTextEditingController,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(), hintText: "Write todo..."),
-        ),
-        FlatButton(
-          child: Text('Add'),
-          color: Colors.blue,
-          onPressed: () {
-            model.add(ListMemo(title: titleTextEditingController.text));
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
-  }
-}
+// class AddMemoDialog extends StatelessWidget {
+//   AddMemoDialog({Key key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final model = Provider.of<ListMemoModel>(context, listen: true);
+//     final titleTextEditingController = TextEditingController();
+//     return SimpleDialog(
+//       title: Text("Add Todo"),
+//       contentPadding: EdgeInsets.all(16),
+//       children: <Widget>[
+//         TextField(
+//           controller: titleTextEditingController,
+//           decoration: InputDecoration(
+//               border: OutlineInputBorder(), hintText: "Write todo..."),
+//         ),
+//         FlatButton(
+//           child: Text('Add'),
+//           color: Colors.blue,
+//           onPressed: () {
+//             model.add(ListMemo(title: titleTextEditingController.text));
+//             Navigator.pop(context);
+//           },
+//         ),
+//       ],
+//     );
+//   }
+// }
