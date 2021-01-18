@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/model/list_memo_model.dart';
-import 'package:handwrite_memo_app/ui/main_button_navigation.dart';
+import 'package:handwrite_memo_app/ui/main_list_memo_navigation.dart';
 import 'package:provider/provider.dart';
 
-import 'model/button_navigation_model.dart';
+import 'model/list_memo_navigation_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ButtomNavigationModel>(
-          create: (context) => ButtomNavigationModel(),
+        ChangeNotifierProvider<ListMemoNavigationModel>(
+          create: (context) => ListMemoNavigationModel(),
         ),
         ChangeNotifierProvider<ListMemoModel>(
           create: (context) => ListMemoModel(),

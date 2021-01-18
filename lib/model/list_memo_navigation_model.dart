@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/ui/list_memo_screen.dart';
 
-class ButtomNavigationModel with ChangeNotifier {
+class ListMemoNavigationModel with ChangeNotifier {
   final List<Widget> options = [
     ListMemoScreen(),
   ];

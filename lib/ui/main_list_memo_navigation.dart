@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/list_memo.dart';
-import 'package:handwrite_memo_app/model/button_navigation_model.dart';
+import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_model.dart';
 import 'package:provider/provider.dart';
 
 class MainButtonNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final buttonNavigationModel =
-        Provider.of<ButtomNavigationModel>(context, listen: true);
+    final listMemoNavigationModel =
+        Provider.of<ListMemoNavigationModel>(context, listen: true);
     return Scaffold(
       body: Center(
-        child: buttonNavigationModel.getSelectedScreen(),
+        child: listMemoNavigationModel.getSelectedScreen(),
       ),
       // bottomNavigationBar: BottomNavigationBar(
       //   items: const <BottomNavigationBarItem>[
@@ -21,10 +21,10 @@ class MainButtonNavigation extends StatelessWidget {
       //     ),
       //   ],
       //   type: BottomNavigationBarType.fixed,
-      //   currentIndex: buttonNavigationModel.selectedIndex,
+      //   currentIndex: listMemoNavigationModel.selectedIndex,
       //   selectedItemColor: Colors.amber[800],
       //   onTap: (index) {
-      //     buttonNavigationModel.change(index);
+      //     listMemoNavigationModel.change(index);
       //   },
       // ),
       floatingActionButton: AddMemoButton(),
@@ -69,7 +69,7 @@ class PopupFloatButton extends StatelessWidget {
             onPressed: () {
               // if (_controller.canUndo) _controller.undo();
               debugPrint("=========Positive");
-              Navigator.pop(context);
+              // Navigator.pop(context);
             },
             child: Text("P"),
           ),
@@ -85,7 +85,7 @@ class PopupFloatButton extends StatelessWidget {
             onPressed: () {
               // if (_controller.canRedo) _controller.redo();
               debugPrint("=========Negative");
-              Navigator.pop(context);
+              // Navigator.pop(context);
             },
             child: Text("N"),
           ),
