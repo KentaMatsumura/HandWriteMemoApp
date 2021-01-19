@@ -5,7 +5,6 @@ class ListMemoDao{
   final dbProvider = DatabaseService.dbProvider;
   final tableName = DatabaseService.memoTableName;
 
-
   Future<int> create(ListMemo listMemo) async {
     final db = await dbProvider.database;
     var result = db.insert(tableName, listMemo.toDatabaseJson());

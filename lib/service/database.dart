@@ -35,9 +35,10 @@ class DatabaseService {
     await database.execute('''
       CREATE TABLE $memoTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
+        text TEXT NOT NULL,
         created_at TEXT NOT NULL,
-        is_selected INTEGER NOT NULL
+        is_selected INTEGER NOT NULL,
+        is_positive INTEGER NOT NULL
       )
     ''');
   }

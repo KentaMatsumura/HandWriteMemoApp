@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/list_memo.dart';
+import 'package:handwrite_memo_app/entity/memo.dart';
+import 'package:handwrite_memo_app/model/create_memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_model.dart';
-import 'package:handwrite_memo_app/ui/sample_second_page.dart';
+import 'package:handwrite_memo_app/ui/create_memo_navigation.dart';
 import 'package:provider/provider.dart';
 
 class MainListMemoNavigation extends StatelessWidget {
@@ -39,14 +41,13 @@ class AddMemoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      // ここで画面遷移したい
       child: Icon(Icons.add),
       onPressed: () {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return AddMemoDialog();
-              // return PopupFloatButton();
+              // return AddMemoDialog();
+              return PopupFloatButton();
             });
       },
     );
@@ -68,12 +69,11 @@ class PopupFloatButton extends StatelessWidget {
           FloatingActionButton(
             heroTag: "P",
             onPressed: () async {
-              // if (_controller.canUndo) _controller.undo();
               debugPrint("=========Positive");
               Navigator.pop(context);  // PopupFloatButtonを閉じる
               await Navigator.push(  // 画面遷移
                 context,
-                MaterialPageRoute(builder: (context) => SampleSecondPage(receive: ['positive', false],),)
+                MaterialPageRoute(builder: (context) => CreateMemoNavigation(receive: ['positive', true],),)
               );
             },
             child: Text("P"),
@@ -88,12 +88,11 @@ class PopupFloatButton extends StatelessWidget {
             heroTag: "N",
             backgroundColor: Colors.red,
             onPressed: () async {
-              // if (_controller.canRedo) _controller.redo();
               debugPrint("=========Negative");
               Navigator.pop(context);
               await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SampleSecondPage(receive: ['negative', true],),)
+                  MaterialPageRoute(builder: (context) => CreateMemoNavigation(receive: ['negative', false],),)
               );
             },
             child: Text("N"),
@@ -108,9 +107,7 @@ class PopupFloatButton extends StatelessWidget {
             heroTag: "x",
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            // onPressed: () => _controller.clear(),
             onPressed: () {
-              // if (_controller.canRedo) _controller.redo();
               debugPrint("=========Cancel");
               Navigator.pop(context);
             },
@@ -127,7 +124,7 @@ class AddMemoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<ListMemoModel>(context, listen: true);
+    final model = Provider.of<CreateMemoModel>(context, listen: true);
     final titleTextEditingController = TextEditingController();
     return SimpleDialog(
       title: Text("Add Todo"),
@@ -142,7 +139,7 @@ class AddMemoDialog extends StatelessWidget {
           child: Text('Add'),
           color: Colors.blue,
           onPressed: () {
-            model.add(ListMemo(title: titleTextEditingController.text, createdAt: DateTime.now()));
+            model.add(Memo(text: titleTextEditingController.text, createdAt: DateTime.now(), isPositive: true));
             Navigator.pop(context);
           },
         ),
