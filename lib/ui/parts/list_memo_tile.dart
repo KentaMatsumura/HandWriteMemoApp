@@ -16,7 +16,7 @@ class ListMemoTile extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: _CheckBoxButton(listMemo: listMemo),
-        title: Text(listMemo.title),
+        title: Text(listMemo.title + listMemo.createdAt.toString()),
         trailing: _RemoveButton(listMemo: listMemo),
       ),
     );

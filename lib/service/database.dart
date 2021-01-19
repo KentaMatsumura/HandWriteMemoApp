@@ -36,6 +36,7 @@ class DatabaseService {
       CREATE TABLE $memoTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
+        created_at TEXT NOT NULL,
         is_selected INTEGER NOT NULL
       )
     ''');

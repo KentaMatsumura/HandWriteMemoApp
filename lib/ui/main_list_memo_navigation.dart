@@ -45,8 +45,8 @@ class AddMemoButton extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              // return AddMemoDialog();
-              return PopupFloatButton();
+              return AddMemoDialog();
+              // return PopupFloatButton();
             });
       },
     );
@@ -122,31 +122,31 @@ class PopupFloatButton extends StatelessWidget {
   }
 }
 
-// class AddMemoDialog extends StatelessWidget {
-//   AddMemoDialog({Key key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final model = Provider.of<ListMemoModel>(context, listen: true);
-//     final titleTextEditingController = TextEditingController();
-//     return SimpleDialog(
-//       title: Text("Add Todo"),
-//       contentPadding: EdgeInsets.all(16),
-//       children: <Widget>[
-//         TextField(
-//           controller: titleTextEditingController,
-//           decoration: InputDecoration(
-//               border: OutlineInputBorder(), hintText: "Write todo..."),
-//         ),
-//         FlatButton(
-//           child: Text('Add'),
-//           color: Colors.blue,
-//           onPressed: () {
-//             model.add(ListMemo(title: titleTextEditingController.text));
-//             Navigator.pop(context);
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
+class AddMemoDialog extends StatelessWidget {
+  AddMemoDialog({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<ListMemoModel>(context, listen: true);
+    final titleTextEditingController = TextEditingController();
+    return SimpleDialog(
+      title: Text("Add Todo"),
+      contentPadding: EdgeInsets.all(16),
+      children: <Widget>[
+        TextField(
+          controller: titleTextEditingController,
+          decoration: InputDecoration(
+              border: OutlineInputBorder(), hintText: "Write todo..."),
+        ),
+        FlatButton(
+          child: Text('Add'),
+          color: Colors.blue,
+          onPressed: () {
+            model.add(ListMemo(title: titleTextEditingController.text, createdAt: DateTime.now()));
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+  }
+}
