@@ -30,7 +30,7 @@ class CreateMemoModel with ChangeNotifier {
   }
 
   void toggleIsDone(Memo memo) async {
-    memo.isPositive = !memo.isPositive;
+    memo.isSelected = !memo.isSelected;
     update(memo);
   }
 

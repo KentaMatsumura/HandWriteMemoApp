@@ -1,4 +1,4 @@
-import 'package:handwrite_memo_app/dao/create_memo_dao.dart';
+import 'package:handwrite_memo_app/dao/memo_dao.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 
 class CreateMemoRepository {

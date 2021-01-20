@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:handwrite_memo_app/entity/list_memo.dart';
+// import 'package:handwrite_memo_app/entity/list_memo.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
-import 'package:handwrite_memo_app/model/create_memo_model.dart';
+import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
-import 'package:handwrite_memo_app/model/list_memo_model.dart';
+// import 'package:handwrite_memo_app/model/list_memo_model.dart';
 import 'package:handwrite_memo_app/ui/create_memo_navigation.dart';
 import 'package:provider/provider.dart';
 
