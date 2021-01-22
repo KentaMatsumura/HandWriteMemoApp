@@ -124,7 +124,7 @@ class AddMemoDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<CreateMemoModel>(context, listen: true);
+    final model = Provider.of<MemoModel>(context, listen: true);
     final titleTextEditingController = TextEditingController();
     return SimpleDialog(
       title: Text("Add Todo"),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/create_memo_navigation_model.dart';
+
 // import 'package:handwrite_memo_app/model/list_memo_model.dart';
 import 'package:handwrite_memo_app/ui/main_list_memo_navigation.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +23,7 @@ class MyApp extends StatelessWidget {
         // ChangeNotifierProvider<ListMemoModel>(
         //   create: (context) => ListMemoModel(),
         // ),
-        ChangeNotifierProvider<CreateMemoModel>(
-            create: (context) => CreateMemoModel()),
+        ChangeNotifierProvider<MemoModel>(create: (context) => MemoModel()),
         ChangeNotifierProvider<CreateMemoNavigationModel>(
             create: (context) => CreateMemoNavigationModel()),
       ],

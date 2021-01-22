@@ -34,7 +34,7 @@ class _CheckBoxButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<CreateMemoModel>(context, listen: true);
+    final model = Provider.of<MemoModel>(context, listen: true);
     return FlatButton(
       child: memo.isSelected
           ? Icon(Icons.check_box)
@@ -56,7 +56,7 @@ class _RemoveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<CreateMemoModel>(context, listen: true);
+    final model = Provider.of<MemoModel>(context, listen: true);
     return FlatButton(
       child: Icon(Icons.delete_forever),
       onPressed: () {

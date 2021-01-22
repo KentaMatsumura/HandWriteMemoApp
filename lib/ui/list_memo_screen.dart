@@ -8,7 +8,7 @@ class ListMemoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<CreateMemoModel>(context, listen: true);
+    final model = Provider.of<MemoModel>(context, listen: true);
     return Scaffold(
       appBar: AppBar(title: Text('メモ')),
       body: ListMemoView(list: model.allListMemo),

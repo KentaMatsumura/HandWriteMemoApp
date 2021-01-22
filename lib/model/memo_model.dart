@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
-import 'package:handwrite_memo_app/repository/create_memo_repository.dart';
+import 'package:handwrite_memo_app/repository/memo_repository.dart';
 
-class CreateMemoModel with ChangeNotifier {
-  List<Memo> _allCreateMemo = [];
+class MemoModel with ChangeNotifier {
+  List<Memo> _allMemo = [];
 
-  List<Memo> get allListMemo => _allCreateMemo;
+  List<Memo> get allListMemo => _allMemo;
 
-  final CreateMemoRepository repo = CreateMemoRepository();
+  final MemoRepository repo = MemoRepository();
 
-  CreateMemoModel() {
+  MemoModel() {
     _fetchAll();
   }
 
   void _fetchAll() async {
-    _allCreateMemo = await repo.getAllCreateMemo();
+    _allMemo = await repo.getAllMemo();
     notifyListeners();
   }
 
 
   void add(Memo memo) async {
-    await repo.insertCreateMemo(memo);
+    await repo.insertMemo(memo);
     _fetchAll();
   }
 
   void update(Memo memo) async {
-    await repo.updateCreateMemo(memo);
+    await repo.updateMemo(memo);
     _fetchAll();
   }
 
@@ -35,7 +35,7 @@ class CreateMemoModel with ChangeNotifier {
   }
 
   void remove(Memo memo) async {
-    await repo.deleteCreateMemoById(memo.id);
+    await repo.deleteMemoById(memo.id);
     _fetchAll();
   }
 }

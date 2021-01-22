@@ -15,18 +15,22 @@ class CreateMemoNavigation extends StatelessWidget {
 }
 
 Scaffold mainMemoScreen(String text, bool isPositive) {
-  Color color = isPositive ? Colors.blue: Colors.red;
+  Color color = isPositive ? Colors.blue : Colors.red;
   return Scaffold(
     appBar: AppBar(
       title: Text(text),
       backgroundColor: color,
     ),
     body: Column(
-      children: [InputText(isPositive: isPositive)],
+      children: [
+        InputText(isPositive: isPositive),
+      ], // ペイント機能のウィジェット
     ),
+    // floatingActionButton: ,  // redo, undo, clearボタン
   );
 }
 
+// サンプル
 class InputText extends StatelessWidget {
   final isPositive;
 
@@ -34,7 +38,7 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<CreateMemoModel>(context, listen: true);
+    final model = Provider.of<MemoModel>(context, listen: true);
     final textEditingController = TextEditingController();
     return Row(
       children: [
