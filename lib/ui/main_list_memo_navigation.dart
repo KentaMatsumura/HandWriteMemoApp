@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 // import 'package:handwrite_memo_app/entity/list_memo.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
+import 'package:handwrite_memo_app/model/strokes_model.dart';
+
 // import 'package:handwrite_memo_app/model/list_memo_model.dart';
 import 'package:handwrite_memo_app/ui/create_memo_navigation.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +62,8 @@ class PopupFloatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strokes = Provider.of<StrokesModel>(context);
+
     return Scaffold(
       body: Container(),
       backgroundColor: Colors.grey.withOpacity(0.1),
@@ -69,12 +74,17 @@ class PopupFloatButton extends StatelessWidget {
           FloatingActionButton(
             heroTag: "P",
             onPressed: () async {
+              strokes.clear();
               debugPrint("=========Positive");
-              Navigator.pop(context);  // PopupFloatButtonを閉じる
-              await Navigator.push(  // 画面遷移
-                context,
-                MaterialPageRoute(builder: (context) => CreateMemoNavigation(receive: ['positive', true],),)
-              );
+              Navigator.pop(context); // PopupFloatButtonを閉じる
+              await Navigator.push(
+                  // 画面遷移
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreateMemoNavigation(
+                      receive: ['positive', true],
+                    ),
+                  ));
             },
             child: Text("P"),
           ),
@@ -88,12 +98,16 @@ class PopupFloatButton extends StatelessWidget {
             heroTag: "N",
             backgroundColor: Colors.red,
             onPressed: () async {
+              strokes.clear();
               debugPrint("=========Negative");
               Navigator.pop(context);
               await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CreateMemoNavigation(receive: ['negative', false],),)
-              );
+                  MaterialPageRoute(
+                    builder: (context) => CreateMemoNavigation(
+                      receive: ['negative', false],
+                    ),
+                  ));
             },
             child: Text("N"),
           ),
@@ -139,7 +153,10 @@ class AddMemoDialog extends StatelessWidget {
           child: Text('Add'),
           color: Colors.blue,
           onPressed: () {
-            model.add(Memo(text: titleTextEditingController.text, createdAt: DateTime.now(), isPositive: true));
+            model.add(Memo(
+                text: titleTextEditingController.text,
+                createdAt: DateTime.now(),
+                isPositive: true));
             Navigator.pop(context);
           },
         ),

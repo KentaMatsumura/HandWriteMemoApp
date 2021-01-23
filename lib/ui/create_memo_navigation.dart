@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
+import 'package:handwrite_memo_app/model/strokes_model.dart';
+import 'package:handwrite_memo_app/ui/paper_screen.dart';
 import 'package:provider/provider.dart';
 
 class CreateMemoNavigation extends StatelessWidget {
@@ -10,23 +12,44 @@ class CreateMemoNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return mainMemoScreen(receive[0], receive[1]);
+    final strokes = Provider.of<StrokesModel>(context);
+
+    return mainMemoScreen(receive[0], receive[1], strokes);
   }
 }
 
-Scaffold mainMemoScreen(String text, bool isPositive) {
+Scaffold mainMemoScreen(String text, bool isPositive, StrokesModel strokes) {
   Color color = isPositive ? Colors.blue : Colors.red;
+
   return Scaffold(
     appBar: AppBar(
       title: Text(text),
       backgroundColor: color,
     ),
-    body: Column(
-      children: [
-        InputText(isPositive: isPositive),
-      ], // ペイント機能のウィジェット
+    body: PaperScreen(),
+    floatingActionButton: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        // positive
+        FloatingActionButton(
+          heroTag: "undo",
+          onPressed: () async {
+            debugPrint("=========undo");
+            strokes.undo();
+          },
+          child: Text("undo"),
+        ),
+        FloatingActionButton(
+          heroTag: "redo",
+          onPressed: () async {
+            debugPrint("=========redo");
+            strokes.redo();
+          },
+          child: Text("redo"),
+        ),
+      ],
     ),
-    // floatingActionButton: ,  // redo, undo, clearボタン
+    // floatingActionButton:
   );
 }
 
