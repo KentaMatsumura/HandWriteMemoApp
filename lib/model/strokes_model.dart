@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handwrite_memo_app/model/pen_model.dart';
 
 class StrokesModel with ChangeNotifier {
   List<Stroke> _drawList = [];
@@ -6,14 +7,13 @@ class StrokesModel with ChangeNotifier {
 
   get all => _drawList;
 
-  void add(Offset offset) {
-    _drawList.add(Stroke()..add(offset));
+  void add(PenModel pen, Offset offset) {
+    _drawList.add(Stroke(pen.color)..add(offset));
     notifyListeners();
   }
 
   void update(Offset offset) {
     _drawList.last.add(offset);
-    // }
     if(_undoList.isNotEmpty){
       _undoList = [];
     }
@@ -43,6 +43,9 @@ class StrokesModel with ChangeNotifier {
 
 class Stroke {
   final List<Offset> points = [];
+  final Color color;
+
+  Stroke(this.color);
 
   add(Offset offset) {
     points.add(offset);

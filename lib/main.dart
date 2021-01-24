@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/create_memo_navigation_model.dart';
+import 'package:handwrite_memo_app/model/pen_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 
 // import 'package:handwrite_memo_app/model/list_memo_model.dart';
@@ -24,7 +25,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<MemoModel>(create: (context) => MemoModel()),
         ChangeNotifierProvider<CreateMemoNavigationModel>(
             create: (context) => CreateMemoNavigationModel()),
-        ChangeNotifierProvider(create: (context) => StrokesModel(),)
+        ChangeNotifierProvider<StrokesModel>(
+          create: (context) => StrokesModel(),
+        ),
+        ChangeNotifierProvider<PenModel>(
+          create: (context) => PenModel(),
+        )
       ],
       child: MaterialApp(
         title: 'Todo App Sample',

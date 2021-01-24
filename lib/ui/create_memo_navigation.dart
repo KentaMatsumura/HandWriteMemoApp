@@ -27,29 +27,6 @@ Scaffold mainMemoScreen(String text, bool isPositive, StrokesModel strokes) {
       backgroundColor: color,
     ),
     body: PaperScreen(),
-    floatingActionButton: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        // positive
-        FloatingActionButton(
-          heroTag: "undo",
-          onPressed: () async {
-            debugPrint("=========undo");
-            strokes.undo();
-          },
-          child: Text("undo"),
-        ),
-        FloatingActionButton(
-          heroTag: "redo",
-          onPressed: () async {
-            debugPrint("=========redo");
-            strokes.redo();
-          },
-          child: Text("redo"),
-        ),
-      ],
-    ),
-    // floatingActionButton:
   );
 }
 

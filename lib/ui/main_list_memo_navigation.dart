@@ -90,7 +90,7 @@ class PopupFloatButton extends StatelessWidget {
           ),
 
           SizedBox(
-            height: 20.0,
+            height: 5.0,
           ),
 
           // negative
@@ -113,7 +113,7 @@ class PopupFloatButton extends StatelessWidget {
           ),
 
           SizedBox(
-            height: 20.0,
+            height: 5.0,
           ),
 
           // cancel

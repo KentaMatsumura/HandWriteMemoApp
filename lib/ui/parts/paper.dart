@@ -1,18 +1,19 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:handwrite_memo_app/model/pen_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 import 'package:provider/provider.dart';
 
 class Paper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final pen = Provider.of<PenModel>(context);
     final strokes = Provider.of<StrokesModel>(context);
 
     return Listener(
       onPointerDown: (details) {
-        strokes.add(details.localPosition);
-        // debugPrint('${details.position}');
+        strokes.add(pen, details.localPosition);
       },
       onPointerMove: (details) {
         strokes.update(details.localPosition);
@@ -27,23 +28,6 @@ class Paper extends StatelessWidget {
         ),
       ),
     );
-
-    // return GestureDetector(
-    //   onPanStart: (start) {
-    //     strokes.add(start.localPosition);
-    //     debugPrint('${start.localPosition}');
-    //   },
-    //   onPanUpdate: (update) {
-    //     strokes.update(update.localPosition);
-    //   },
-    //   // onPanEnd: ,
-    //   child: CustomPaint(
-    //     painter: _Painter(strokes: strokes),
-    //     // child: ConstrainedBox(
-    //     //   constraints: BoxConstraints.expand(),
-    //     // ),
-    //   ),
-    // );
   }
 }
 
@@ -56,7 +40,7 @@ class _Painter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     strokes.all.forEach((stroke) {
       final paint = Paint()
-        ..color = Colors.black
+        ..color = stroke.color
         ..strokeCap = StrokeCap.round
         ..strokeWidth = 3;
       canvas.drawPoints(PointMode.polygon, stroke.points, paint);
