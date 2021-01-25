@@ -18,4 +18,9 @@ class PenModel extends ChangeNotifier {
     _width = width;
     notifyListeners();
   }
+
+  void resetColor(){
+    _color = Colors.black;
+    notifyListeners();
+  }
 }

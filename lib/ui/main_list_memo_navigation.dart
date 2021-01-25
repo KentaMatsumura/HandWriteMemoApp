@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
+import 'package:handwrite_memo_app/model/pen_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 
 // import 'package:handwrite_memo_app/model/list_memo_model.dart';
@@ -63,6 +64,7 @@ class PopupFloatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strokes = Provider.of<StrokesModel>(context);
+    final pen = Provider.of<PenModel>(context);
 
     return Scaffold(
       body: Container(),
@@ -75,6 +77,7 @@ class PopupFloatButton extends StatelessWidget {
             heroTag: "P",
             onPressed: () async {
               strokes.clear();
+              pen.resetColor();
               debugPrint("=========Positive");
               Navigator.pop(context); // PopupFloatButtonを閉じる
               await Navigator.push(
@@ -99,6 +102,7 @@ class PopupFloatButton extends StatelessWidget {
             backgroundColor: Colors.red,
             onPressed: () async {
               strokes.clear();
+              pen.resetColor();
               debugPrint("=========Negative");
               Navigator.pop(context);
               await Navigator.push(
@@ -133,6 +137,8 @@ class PopupFloatButton extends StatelessWidget {
   }
 }
 
+
+// 使ってない
 class AddMemoDialog extends StatelessWidget {
   AddMemoDialog({Key key}) : super(key: key);
 

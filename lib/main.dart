@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handwrite_memo_app/model/key_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/create_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/pen_model.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<PenModel>(
           create: (context) => PenModel(),
+        ),
+        ChangeNotifierProvider<KeyModel>(
+          create: (context) => KeyModel(),
         )
       ],
       child: MaterialApp(

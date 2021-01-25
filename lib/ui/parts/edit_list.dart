@@ -15,18 +15,24 @@ class EditList extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.subdirectory_arrow_left_outlined),
                 iconSize: 40,
+                padding: EdgeInsets.all(0.0),
+                splashRadius: 25,
                 onPressed: () async {
                   strokes.undo();
                 }),
             IconButton(
                 icon: Icon(Icons.delete),
                 iconSize: 40,
+                padding: EdgeInsets.all(0.0),
+                splashRadius: 25,
                 onPressed: () async {
                   strokes.clear();
                 }),
             IconButton(
                 icon: Icon(Icons.subdirectory_arrow_right_outlined),
                 iconSize: 40,
+                padding: EdgeInsets.all(0.0),
+                splashRadius: 25,
                 onPressed: () async {
                   strokes.redo();
                 }),
