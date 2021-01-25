@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
-import 'package:handwrite_memo_app/model/key_model.dart';
+import 'package:handwrite_memo_app/model/image_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 import 'package:handwrite_memo_app/ui/paper_screen.dart';
 import 'package:handwrite_memo_app/ui/parts/widget_to_image.dart';
 import 'package:handwrite_memo_app/utils/utils.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:provider/provider.dart';
-import 'dart:ui' as ui;
 
 class CreateMemoNavigation extends StatelessWidget {
   final receive;
@@ -19,27 +19,27 @@ class CreateMemoNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strokes = Provider.of<StrokesModel>(context);
-    final pageKey = Provider.of<KeyModel>(context);
+    final pageKey = Provider.of<ImageModel>(context);
     Color color = receive[1] ? Colors.blue : Colors.red;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(receive[0]),
-          backgroundColor: color,
-          actions: [
-            IconButton(
-                icon: Icon(Icons.save_alt),
-                onPressed: () async {
-                  debugPrint("key: ===${pageKey.key}===");
-                  final pageByte = await Utils.capture(pageKey.key);
-                  debugPrint("byte: ===$pageByte===");
-                })
-          ],
-        ),
-        body: WidgetToImage(builder: (key) {
-          pageKey.key = key;
-          return PaperScreen();
-        }));
+      appBar: AppBar(
+        title: Text(receive[0]),
+        backgroundColor: color,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.save_alt),
+              onPressed: () async {
+                if (strokes.drawList.isNotEmpty) {
+                  pageKey.pngByte = await Utils.capture(pageKey.key);
+                  final result =
+                      await ImageGallerySaver.saveImage(pageKey.pngByte);
+                }
+              })
+        ],
+      ),
+      body: PaperScreen(),
+    );
   }
 }
 

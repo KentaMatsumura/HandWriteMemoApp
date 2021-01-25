@@ -7,6 +7,8 @@ class StrokesModel with ChangeNotifier {
 
   get all => _drawList;
 
+  List<Stroke> get drawList => _drawList;
+
   void add(PenModel pen, Offset offset) {
     _drawList.add(Stroke(pen.color)..add(offset));
     notifyListeners();

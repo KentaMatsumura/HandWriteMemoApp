@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handwrite_memo_app/model/key_model.dart';
+import 'package:handwrite_memo_app/model/image_model.dart';
 import 'package:provider/provider.dart';
 
 class WidgetToImage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _WidgetToImageState extends State<WidgetToImage> {
   final globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final pageKey = Provider.of<KeyModel>(context);
+    final pageKey = Provider.of<ImageModel>(context);
 
     return RepaintBoundary(
       key: globalKey,
