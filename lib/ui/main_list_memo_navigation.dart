@@ -160,7 +160,7 @@ class AddMemoDialog extends StatelessWidget {
           color: Colors.blue,
           onPressed: () {
             model.add(Memo(
-                text: titleTextEditingController.text,
+                fileName: titleTextEditingController.text,
                 createdAt: DateTime.now(),
                 isPositive: true));
             Navigator.pop(context);

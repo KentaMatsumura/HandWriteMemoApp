@@ -16,15 +16,12 @@ class WidgetToImage extends StatefulWidget {
 
 class _WidgetToImageState extends State<WidgetToImage> {
   final globalKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    final pageKey = Provider.of<ImageModel>(context);
-
     return RepaintBoundary(
       key: globalKey,
       child: widget.builder(globalKey),
-      // key: pageKey.key,
-      // child: widget.builder(pageKey.key),
     );
   }
 }

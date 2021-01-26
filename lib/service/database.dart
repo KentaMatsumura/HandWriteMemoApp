@@ -35,7 +35,7 @@ class DatabaseService {
     await database.execute('''
       CREATE TABLE $memoTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        text TEXT NOT NULL,
+        file_name TEXT NOT NULL,
         created_at TEXT NOT NULL,
         is_selected INTEGER NOT NULL,
         is_positive INTEGER NOT NULL

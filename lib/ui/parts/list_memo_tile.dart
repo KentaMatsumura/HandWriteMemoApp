@@ -16,7 +16,7 @@ class ListMemoTile extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: _CheckBoxButton(memo: memo),
-        title: Text(memo.text),
+        title: Text(memo.fileName),
         tileColor: color,
         trailing: _RemoveButton(memo: memo),
       ),

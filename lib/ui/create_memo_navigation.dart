@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/image_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 import 'package:handwrite_memo_app/ui/paper_screen.dart';
-import 'package:handwrite_memo_app/ui/parts/widget_to_image.dart';
 import 'package:handwrite_memo_app/utils/utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:provider/provider.dart';
+import "package:intl/intl.dart";
+import 'package:intl/date_symbol_data_local.dart';
 
 class CreateMemoNavigation extends StatelessWidget {
   final receive;
@@ -20,6 +20,7 @@ class CreateMemoNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final strokes = Provider.of<StrokesModel>(context);
     final pageKey = Provider.of<ImageModel>(context);
+    final model = Provider.of<MemoModel>(context, listen: true);
     Color color = receive[1] ? Colors.blue : Colors.red;
 
     return Scaffold(
@@ -32,14 +33,29 @@ class CreateMemoNavigation extends StatelessWidget {
               onPressed: () async {
                 if (strokes.drawList.isNotEmpty) {
                   pageKey.pngByte = await Utils.capture(pageKey.key);
-                  final result =
-                      await ImageGallerySaver.saveImage(pageKey.pngByte);
+                  final result = await ImageGallerySaver.saveImage(
+                      pageKey.pngByte,
+                      name: "");
+                  DateTime now = DateTime.now();
+                  model.add(Memo(
+                      fileName: convertDateTimeToFileName(now),
+                      createdAt: now,
+                      isPositive: receive[1]));
+                  Navigator.pop(context);
                 }
               })
         ],
       ),
       body: PaperScreen(),
     );
+  }
+
+  String convertDateTimeToFileName(DateTime now) {
+    initializeDateFormatting("ja_JP");
+    var formatter = new DateFormat('yyyy_MM_dd_HH_mm_ss', "ja_JP");
+    var formatted = formatter.format(now); // DateからString
+    var fileName = "AppName_$formatted";
+    return fileName;
   }
 }
 
@@ -85,7 +101,7 @@ class InputText extends StatelessWidget {
             onPressed: () {
               if (textEditingController.text.isNotEmpty) {
                 model.add(Memo(
-                    text: textEditingController.text,
+                    fileName: textEditingController.text,
                     createdAt: DateTime.now(),
                     isPositive: this.isPositive));
                 Navigator.pop(context);

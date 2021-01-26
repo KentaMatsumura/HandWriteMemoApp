@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/model/image_model.dart';
 import 'package:handwrite_memo_app/model/pen_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
-import 'package:handwrite_memo_app/ui/parts/edit_list.dart';
+import 'package:handwrite_memo_app/ui/parts/editor.dart';
 import 'package:handwrite_memo_app/ui/parts/palette.dart';
 import 'package:handwrite_memo_app/ui/parts/paper.dart';
 import 'package:handwrite_memo_app/ui/parts/widget_to_image.dart';
@@ -28,7 +28,7 @@ class PaperScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Palette(),
-              EditList(),
+              Editor(),
             ],
           ),
         )
