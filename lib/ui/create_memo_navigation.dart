@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/image_model.dart';
+import 'package:handwrite_memo_app/model/image_path_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 import 'package:handwrite_memo_app/ui/paper_screen.dart';
 import 'package:handwrite_memo_app/utils/utils.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
@@ -23,6 +27,19 @@ class CreateMemoNavigation extends StatelessWidget {
     final model = Provider.of<MemoModel>(context, listen: true);
     Color color = receive[1] ? Colors.blue : Colors.red;
 
+    void saveImage(String imageName) async {
+      pageKey.pngByte = await Utils.capture(pageKey.key);
+      final String dir = (await getApplicationDocumentsDirectory()).path;
+      final String fullPath = '$dir/$imageName';
+      File capturedFile = File(fullPath);
+      await capturedFile.writeAsBytes(pageKey.pngByte);
+      await GallerySaver.saveImage(capturedFile.path);
+      ImagePathModel();
+      // debugPrint("dirPath: $dir");
+      // debugPrint("fullPath: $capturedFile");
+      // debugPrint("saveImage: ${capturedFile.path}");
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(receive[0]),
@@ -32,13 +49,11 @@ class CreateMemoNavigation extends StatelessWidget {
               icon: Icon(Icons.save_alt),
               onPressed: () async {
                 if (strokes.drawList.isNotEmpty) {
-                  pageKey.pngByte = await Utils.capture(pageKey.key);
-                  final result = await ImageGallerySaver.saveImage(
-                      pageKey.pngByte,
-                      name: "");
                   DateTime now = DateTime.now();
+                  String imageName = convertDateTimeToImageName(now);
+                  saveImage(imageName);
                   model.add(Memo(
-                      fileName: convertDateTimeToFileName(now),
+                      fileName: imageName,
                       createdAt: now,
                       isPositive: receive[1]));
                   Navigator.pop(context);
@@ -50,12 +65,12 @@ class CreateMemoNavigation extends StatelessWidget {
     );
   }
 
-  String convertDateTimeToFileName(DateTime now) {
+  String convertDateTimeToImageName(DateTime now) {
     initializeDateFormatting("ja_JP");
     var formatter = new DateFormat('yyyy_MM_dd_HH_mm_ss', "ja_JP");
     var formatted = formatter.format(now); // DateからString
-    var fileName = "AppName_$formatted";
-    return fileName;
+    var imageName = "AppName_$formatted.png";
+    return imageName;
   }
 }
 

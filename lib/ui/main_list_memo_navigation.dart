@@ -1,14 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-// import 'package:handwrite_memo_app/entity/list_memo.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
+import 'package:handwrite_memo_app/model/image_path_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/pen_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 
-// import 'package:handwrite_memo_app/model/list_memo_model.dart';
 import 'package:handwrite_memo_app/ui/create_memo_navigation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class MainListMemoNavigation extends StatelessWidget {
@@ -16,6 +18,8 @@ class MainListMemoNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final listMemoNavigationModel =
         Provider.of<ListMemoNavigationModel>(context, listen: true);
+    final imageFileModel = Provider.of<ImagePathModel>(context, listen: true);
+
     return Scaffold(
       body: Center(
         child: listMemoNavigationModel.getSelectedScreen(),
@@ -50,7 +54,6 @@ class AddMemoButton extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              // return AddMemoDialog();
               return PopupFloatButton();
             });
       },
@@ -80,6 +83,11 @@ class PopupFloatButton extends StatelessWidget {
               pen.resetColor();
               debugPrint("=========Positive");
               Navigator.pop(context); // PopupFloatButtonを閉じる
+
+              // await Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) =>  MyHomePage(title: 'Path Provider'))
+              // );
               await Navigator.push(
                   // 画面遷移
                   context,
@@ -136,7 +144,6 @@ class PopupFloatButton extends StatelessWidget {
     );
   }
 }
-
 
 // 使ってない
 class AddMemoDialog extends StatelessWidget {

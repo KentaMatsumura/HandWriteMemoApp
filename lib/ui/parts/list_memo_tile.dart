@@ -1,24 +1,31 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class ListMemoTile extends StatelessWidget {
   final Memo memo;
-  const ListMemoTile({
-    Key key,
-    @required this.memo,
-  }) : super(key: key);
+  final File imagePath;
+
+  const ListMemoTile({Key key, @required this.memo, @required this.imagePath})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Color color = memo.isPositive ? Colors.blue : Colors.red;
     return Card(
       child: ListTile(
         leading: _CheckBoxButton(memo: memo),
-        title: Text(memo.fileName),
-        tileColor: color,
+        title: Image.file(imagePath),
+        // title: Text(memo.fileName),
+        tileColor: memo.isPositive ? Colors.blue : Colors.red,
         trailing: _RemoveButton(memo: memo),
+        onTap: () {
+          debugPrint("${memo.fileName}");
+        },
       ),
     );
   }

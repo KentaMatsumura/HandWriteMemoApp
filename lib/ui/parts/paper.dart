@@ -11,20 +11,23 @@ class Paper extends StatelessWidget {
     final pen = Provider.of<PenModel>(context);
     final strokes = Provider.of<StrokesModel>(context);
 
-    return Listener(
-      onPointerDown: (details) {
-        strokes.add(pen, details.localPosition);
-      },
-      onPointerMove: (details) {
-        strokes.update(details.localPosition);
-      },
-      onPointerUp: (details) {
-        strokes.update(details.localPosition);
-      },
-      child: CustomPaint(
-        painter: _Painter(strokes: strokes),
-        child: ConstrainedBox(
-          constraints: BoxConstraints.expand(),
+    return Container(
+      color: Colors.white,  // 背景を白色に
+      child: Listener(
+        onPointerDown: (details) {
+          strokes.add(pen, details.localPosition);
+        },
+        onPointerMove: (details) {
+          strokes.update(details.localPosition);
+        },
+        onPointerUp: (details) {
+          strokes.update(details.localPosition);
+        },
+        child: CustomPaint(
+          painter: _Painter(strokes: strokes),
+          child: ConstrainedBox(
+            constraints: BoxConstraints.expand(),
+          ),
         ),
       ),
     );
