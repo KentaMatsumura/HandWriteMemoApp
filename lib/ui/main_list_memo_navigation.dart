@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import 'package:handwrite_memo_app/entity/memo.dart';
-import 'package:handwrite_memo_app/model/image_path_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/pen_model.dart';
@@ -14,11 +11,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class MainListMemoNavigation extends StatelessWidget {
+  void getPath() async {
+    final String dir = (await getApplicationDocumentsDirectory()).path;
+    debugPrint("save path: $dir");
+  }
+
   @override
   Widget build(BuildContext context) {
     final listMemoNavigationModel =
         Provider.of<ListMemoNavigationModel>(context, listen: true);
-    final imageFileModel = Provider.of<ImagePathModel>(context, listen: true);
+
+    getPath();
 
     return Scaffold(
       body: Center(

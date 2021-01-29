@@ -18,7 +18,6 @@ class MemoModel with ChangeNotifier {
     notifyListeners();
   }
 
-
   void add(Memo memo) async {
     await repo.insertMemo(memo);
     _fetchAll();
@@ -35,7 +34,7 @@ class MemoModel with ChangeNotifier {
   }
 
   void remove(Memo memo) async {
-    await repo.deleteMemoById(memo.id);
+    await repo.deleteMemoById(memo.id, memo.path);
     _fetchAll();
   }
 }

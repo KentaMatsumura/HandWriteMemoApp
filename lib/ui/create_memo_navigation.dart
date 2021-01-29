@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/image_model.dart';
-import 'package:handwrite_memo_app/model/image_path_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 import 'package:handwrite_memo_app/ui/paper_screen.dart';
@@ -27,17 +26,14 @@ class CreateMemoNavigation extends StatelessWidget {
     final model = Provider.of<MemoModel>(context, listen: true);
     Color color = receive[1] ? Colors.blue : Colors.red;
 
-    void saveImage(String imageName) async {
+    Future<String> saveImage(String imageName) async {
       pageKey.pngByte = await Utils.capture(pageKey.key);
       final String dir = (await getApplicationDocumentsDirectory()).path;
       final String fullPath = '$dir/$imageName';
       File capturedFile = File(fullPath);
       await capturedFile.writeAsBytes(pageKey.pngByte);
       await GallerySaver.saveImage(capturedFile.path);
-      ImagePathModel();
-      // debugPrint("dirPath: $dir");
-      // debugPrint("fullPath: $capturedFile");
-      // debugPrint("saveImage: ${capturedFile.path}");
+      return fullPath;
     }
 
     return Scaffold(
@@ -51,12 +47,14 @@ class CreateMemoNavigation extends StatelessWidget {
                 if (strokes.drawList.isNotEmpty) {
                   DateTime now = DateTime.now();
                   String imageName = convertDateTimeToImageName(now);
-                  saveImage(imageName);
-                  model.add(Memo(
-                      fileName: imageName,
-                      createdAt: now,
-                      isPositive: receive[1]));
-                  Navigator.pop(context);
+                  saveImage(imageName).then((value) {
+                    model.add(Memo(
+                        fileName: imageName,
+                        path: value,
+                        createdAt: now,
+                        isPositive: receive[1]));
+                    Navigator.pop(context);
+                  });
                 }
               })
         ],

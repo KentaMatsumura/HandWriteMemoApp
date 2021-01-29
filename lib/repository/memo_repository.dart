@@ -10,5 +10,5 @@ class MemoRepository {
 
   Future updateMemo(Memo memo) => memoDao.update(memo);
 
-  Future deleteMemoById(int id) => memoDao.delete(id);
+  Future deleteMemoById(int id, String path) => memoDao.delete(id, path);
 }
