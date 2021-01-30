@@ -31,9 +31,15 @@ class ListMemoTile extends StatelessWidget {
               height: size.height * 0.1,
             ),
             Container(
-              child: Image.file(
-                File("${memo.path}"),
-                fit: BoxFit.fitWidth,
+              child: GestureDetector(
+                child: Image.file(
+                  File("${memo.path}"),
+                  fit: BoxFit.fitWidth,
+                ),
+                onTap: (){
+                  // Previewを表示する
+                  debugPrint("tapped");
+                },
               ),
               color: Colors.blue,
               width: size.width * 0.7,
