@@ -19,41 +19,47 @@ class ListMemoTile extends StatelessWidget {
 
     return Center(
       child: Card(
+        color: this.memo.isPositive ? Colors.blue : Colors.red,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               child: _CheckBoxButton(memo: memo),
-              color: Colors.green,
               padding: EdgeInsets.all(2),
               margin: EdgeInsets.all(2),
               width: size.width * 0.1,
-              height: size.height * 0.1,
+              height: size.height * 0.15,
             ),
             Container(
-              child: GestureDetector(
-                child: Image.file(
-                  File("${memo.path}"),
-                  fit: BoxFit.fitWidth,
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: GestureDetector(
+                  child: ClipRect(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      heightFactor: 0.23,
+                      child: Image.file(
+                        File("${memo.path}"),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    // Previewを表示する
+                    debugPrint("tapped");
+                  },
                 ),
-                onTap: (){
-                  // Previewを表示する
-                  debugPrint("tapped");
-                },
               ),
-              color: Colors.blue,
               width: size.width * 0.7,
-              height: size.height * 0.1,
+              height: size.height * 0.15,
               padding: EdgeInsets.all(2),
               margin: EdgeInsets.all(0),
             ),
             Container(
               child: _RemoveButton(memo: memo),
-              color: Colors.red,
               padding: EdgeInsets.all(2),
               margin: EdgeInsets.all(2),
               width: size.width * 0.1,
-              height: size.height * 0.1,
+              height: size.height * 0.15,
             ),
           ],
         ),
@@ -110,57 +116,3 @@ class _RemoveButton extends StatelessWidget {
     );
   }
 }
-
-class MemoCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              child: Icon(Icons.check_box),
-              color: Colors.green,
-              padding: EdgeInsets.all(2),
-              margin: EdgeInsets.all(2),
-            ),
-            Container(
-              child: Icon(Icons.check_box),
-              color: Colors.blue,
-              width: 200,
-              padding: EdgeInsets.all(2),
-              margin: EdgeInsets.all(0),
-            ),
-            Container(
-              child: Icon(Icons.check_box),
-              color: Colors.red,
-              padding: EdgeInsets.all(2),
-              margin: EdgeInsets.all(2),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//
-// class MemoTile extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       child: ListTile(
-//         leading: _CheckBoxButton(memo: memo),
-//         // title: Image.file(imagePath),
-//         title: Text(memo.fileName),
-//         tileColor: memo.isPositive ? Colors.blue : Colors.red,
-//         trailing: _RemoveButton(memo: memo),
-//         onTap: () {
-//           debugPrint("${memo.fileName}");
-//         },
-//       ),
-//     );
-//
-//   }
-// }

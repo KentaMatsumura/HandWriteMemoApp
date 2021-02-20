@@ -9,6 +9,10 @@ import 'package:handwrite_memo_app/ui/parts/widget_to_image.dart';
 import 'package:provider/provider.dart';
 
 class PaperScreen extends StatelessWidget {
+  final isPositive;
+
+  PaperScreen({Key key, @required this.isPositive}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final strokes = Provider.of<StrokesModel>(context);
@@ -20,10 +24,12 @@ class PaperScreen extends StatelessWidget {
       children: [
         WidgetToImage(builder: (key) {
           pageKey.key = key;
-          return Paper();
+          return Paper(
+            isPositive: isPositive,
+          );
         }),
         Container(
-          height: size.height * 0.85,
+          height: size.height * 0.90,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

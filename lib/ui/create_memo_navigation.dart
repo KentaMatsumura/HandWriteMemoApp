@@ -59,7 +59,7 @@ class CreateMemoNavigation extends StatelessWidget {
               })
         ],
       ),
-      body: PaperScreen(),
+      body: PaperScreen(isPositive: receive[1]),
     );
   }
 
