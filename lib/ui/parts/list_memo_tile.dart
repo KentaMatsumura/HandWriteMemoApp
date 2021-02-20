@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
+import 'package:handwrite_memo_app/ui/preview_screen.dart';
 import 'package:provider/provider.dart';
 
 class ListMemoTile extends StatelessWidget {
@@ -31,28 +32,13 @@ class ListMemoTile extends StatelessWidget {
               height: size.height * 0.15,
             ),
             Container(
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: GestureDetector(
-                  child: ClipRect(
-                    child: Align(
-                      alignment: Alignment.topCenter,
-                      heightFactor: 0.23,
-                      child: Image.file(
-                        File("${memo.path}"),
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    // Previewを表示する
-                    debugPrint("tapped");
-                  },
-                ),
+              child: _MemoPreview(
+                memo: memo,
               ),
-              width: size.width * 0.7,
-              height: size.height * 0.15,
               padding: EdgeInsets.all(2),
               margin: EdgeInsets.all(0),
+              width: size.width * 0.7,
+              height: size.height * 0.15,
             ),
             Container(
               child: _RemoveButton(memo: memo),
@@ -113,6 +99,43 @@ class _RemoveButton extends StatelessWidget {
       },
       minWidth: 0,
       padding: EdgeInsets.all(0),
+    );
+  }
+}
+
+class _MemoPreview extends StatelessWidget {
+  final Memo memo;
+
+  const _MemoPreview({
+    Key key,
+    @required this.memo,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FittedBox(
+      fit: BoxFit.fitWidth,
+      child: GestureDetector(
+        child: ClipRect(
+          child: Align(
+            alignment: Alignment.topCenter,
+            heightFactor: 0.23,
+            child: Image.file(
+              File("${memo.path}"),
+            ),
+          ),
+        ),
+        onTap: () async {
+          // Previewを表示する
+          debugPrint("tapped ${memo.fileName}");
+          await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PreviewScreen(
+                        memo: memo,
+                      )));
+        },
+      ),
     );
   }
 }

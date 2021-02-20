@@ -86,11 +86,6 @@ class PopupFloatButton extends StatelessWidget {
               pen.resetColor();
               debugPrint("=========Positive");
               Navigator.pop(context); // PopupFloatButtonを閉じる
-
-              // await Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) =>  MyHomePage(title: 'Path Provider'))
-              // );
               await Navigator.push(
                   // 画面遷移
                   context,
