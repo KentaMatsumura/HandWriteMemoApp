@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:handwrite_memo_app/model/image_model.dart';
 import 'package:handwrite_memo_app/model/image_name_model.dart';
+import 'package:handwrite_memo_app/model/item_position_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/pen_model.dart';
+import 'package:handwrite_memo_app/model/scroll_position_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 
 import 'package:handwrite_memo_app/ui/main_list_memo_navigation.dart';
@@ -35,6 +37,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ImageNameModel>(
           create: (context) => ImageNameModel(),
         ),
+        ChangeNotifierProvider<ItemPositionModel>(
+            create: (context) => ItemPositionModel()),
+        ChangeNotifierProvider<ScrollPositionModel>(
+            create: (context) => ScrollPositionModel()),
       ],
       child: MaterialApp(
         title: 'メモ！！！',

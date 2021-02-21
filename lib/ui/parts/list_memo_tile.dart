@@ -16,7 +16,7 @@ class ListMemoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    debugPrint("in ListTile: ${memo.path}");
+    // debugPrint("in ListTile: ${memo.path}");
 
     return Center(
       child: Card(

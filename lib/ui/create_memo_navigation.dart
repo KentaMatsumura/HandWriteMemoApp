@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:handwrite_memo_app/entity/memo.dart';
 import 'package:handwrite_memo_app/model/image_model.dart';
+import 'package:handwrite_memo_app/model/item_position_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/strokes_model.dart';
 import 'package:handwrite_memo_app/ui/paper_screen.dart';
@@ -24,6 +25,8 @@ class CreateMemoNavigation extends StatelessWidget {
     final strokes = Provider.of<StrokesModel>(context);
     final pageKey = Provider.of<ImageModel>(context);
     final model = Provider.of<MemoModel>(context, listen: true);
+    final itemPositionModel =
+        Provider.of<ItemPositionModel>(context, listen: true);
     Color color = receive[1] ? Colors.blue : Colors.red;
 
     Future<String> saveImage(String imageName) async {
@@ -53,6 +56,8 @@ class CreateMemoNavigation extends StatelessWidget {
                         path: value,
                         createdAt: now,
                         isPositive: receive[1]));
+                    itemPositionModel.addListIndex();
+                    itemPositionModel.jumpToLatest();
                     Navigator.pop(context);
                   });
                 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:handwrite_memo_app/entity/memo.dart';
+import 'package:handwrite_memo_app/model/item_position_model.dart';
 import 'package:handwrite_memo_app/model/memo_model.dart';
 import 'package:handwrite_memo_app/model/list_memo_navigation_model.dart';
 import 'package:handwrite_memo_app/model/pen_model.dart';
@@ -51,9 +52,13 @@ class AddMemoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final itemPositionModel = Provider.of<ItemPositionModel>(context, listen: true);
+
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
+        itemPositionModel.itemPositionsCallback();
+
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -73,7 +78,11 @@ class PopupFloatButton extends StatelessWidget {
     final pen = Provider.of<PenModel>(context);
 
     return Scaffold(
-      body: Container(),
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
       backgroundColor: Colors.grey.withOpacity(0.1),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
